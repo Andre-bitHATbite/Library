@@ -20,7 +20,7 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        etEmail = findViewById(R.id.etEmail)
+        etEmail = findViewById(R.id.etUsername)
         etPassword = findViewById(R.id.etPassword)
         btnRegister = findViewById(R.id.btnRegister)
         btnGoLogin = findViewById(R.id.btnGoLogin)
@@ -36,8 +36,10 @@ class RegisterActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            btnRegister.isEnabled = false
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
+                    btnRegister.isEnabled = true
                     if (task.isSuccessful) {
                         Toast.makeText(this, "Registration successful!", Toast.LENGTH_SHORT).show()
                         startActivity(Intent(this, LoginActivity::class.java))
@@ -54,3 +56,4 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 }
+
