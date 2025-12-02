@@ -2,9 +2,6 @@ package com.example.librarysystemmanagement
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
@@ -30,12 +27,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        auth = FirebaseAuth.getInstance()
-        database = FirebaseDatabase.getInstance().reference
-
         btnAddBook = findViewById(R.id.btnAddBook)
         btnLogout = findViewById(R.id.btnLogout)
         rvBooks = findViewById(R.id.rvBooks)
+
+        auth = FirebaseAuth.getInstance()
+        database = FirebaseDatabase.getInstance().reference
 
         bookList = mutableListOf()
         adapter = BookAdapter(bookList)
@@ -52,6 +49,11 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
 
+        loadBooks()
+    }
+
+    override fun onResume() {
+        super.onResume()
         loadBooks()
     }
 
@@ -74,17 +76,20 @@ class MainActivity : AppCompatActivity() {
             })
     }
 
-    inner class BookAdapter(private val books: List<Book>) : RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
+    inner class BookAdapter(private val books: List<Book>) :
+        RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
 
-        inner class BookViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        inner class BookViewHolder(itemView: android.view.View) :
+            RecyclerView.ViewHolder(itemView) {
             val tvTitle: TextView = itemView.findViewById(R.id.tvBookTitle)
             val tvAuthor: TextView = itemView.findViewById(R.id.tvBookAuthor)
             val btnEdit: ImageButton = itemView.findViewById(R.id.btnEdit)
             val btnDelete: ImageButton = itemView.findViewById(R.id.btnDelete)
         }
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.itembook_activity, parent, false)
+        override fun onCreateViewHolder(parent: android.view.ViewGroup, viewType: Int): BookViewHolder {
+            val view = android.view.LayoutInflater.from(parent.context)
+                .inflate(R.layout.itembook_activity, parent, false)
             return BookViewHolder(view)
         }
 
@@ -94,7 +99,6 @@ class MainActivity : AppCompatActivity() {
             holder.tvAuthor.text = book.author
 
             holder.btnEdit.setOnClickListener {
-                // Open AddBookActivity in edit mode
                 val intent = Intent(this@MainActivity, AddBookActivity::class.java)
                 intent.putExtra("bookId", book.id)
                 startActivity(intent)
@@ -116,3 +120,4 @@ class MainActivity : AppCompatActivity() {
         override fun getItemCount(): Int = books.size
     }
 }
+

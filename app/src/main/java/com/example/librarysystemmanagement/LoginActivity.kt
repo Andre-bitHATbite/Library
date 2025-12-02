@@ -10,7 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var etUsername: EditText
+    private lateinit var etEmail: EditText
     private lateinit var etPassword: EditText
     private lateinit var btnLogin: Button
     private lateinit var btnGoRegister: Button
@@ -20,38 +20,42 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        auth = FirebaseAuth.getInstance()
-
-        etUsername = findViewById(R.id.etUsername)
+        // Initialize views
+        etEmail = findViewById(R.id.etUsername) // or rename to etEmail in XML for consistency
         etPassword = findViewById(R.id.etPassword)
         btnLogin = findViewById(R.id.btnLogin)
         btnGoRegister = findViewById(R.id.btnGoRegister)
 
+        auth = FirebaseAuth.getInstance()
+
+        // Login button click
         btnLogin.setOnClickListener {
-            val username = etUsername.text.toString().trim()
+            val email = etEmail.text.toString().trim()
             val password = etPassword.text.toString().trim()
 
-            if (username.isEmpty() || password.isEmpty()) {
+            if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Please fill in both fields", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            auth.signInWithEmailAndPassword(username, password)
+            auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        // On successful login, navigate to HomeActivity
                         Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this, LoginActivity::class.java))
-                        finish()  // Optional: finish the LoginActivity
+                        // Navigate to the landing page (MainActivity)
+                        startActivity(Intent(this, MainActivity::class.java))
+                        finish()
                     } else {
                         Toast.makeText(this, "Error: ${task.exception?.message}", Toast.LENGTH_LONG).show()
                     }
                 }
         }
 
+        // Go to Register screen
         btnGoRegister.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
             finish()
         }
     }
 }
+

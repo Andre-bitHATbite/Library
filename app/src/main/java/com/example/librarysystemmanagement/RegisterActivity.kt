@@ -12,6 +12,7 @@ class RegisterActivity : AppCompatActivity() {
 
     private lateinit var etEmail: EditText
     private lateinit var etPassword: EditText
+    private lateinit var etConfirmPassword: EditText
     private lateinit var btnRegister: Button
     private lateinit var btnGoLogin: Button
     private lateinit var auth: FirebaseAuth
@@ -20,8 +21,10 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        etEmail = findViewById(R.id.etUsername)
+        // Initialize views
+        etEmail = findViewById(R.id.etEmail)
         etPassword = findViewById(R.id.etPassword)
+        etConfirmPassword = findViewById(R.id.etConfirmPassword)
         btnRegister = findViewById(R.id.btnRegister)
         btnGoLogin = findViewById(R.id.btnGoLogin)
 
@@ -30,18 +33,28 @@ class RegisterActivity : AppCompatActivity() {
         btnRegister.setOnClickListener {
             val email = etEmail.text.toString().trim()
             val password = etPassword.text.toString().trim()
+            val confirmPassword = etConfirmPassword.text.toString().trim()
 
-            if (email.isEmpty() || password.isEmpty()) {
+            // Validate fields
+            if (email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
                 Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
+            if (password != confirmPassword) {
+                Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             btnRegister.isEnabled = false
+
+            // Firebase registration
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     btnRegister.isEnabled = true
                     if (task.isSuccessful) {
                         Toast.makeText(this, "Registration successful!", Toast.LENGTH_SHORT).show()
+                        // Go to login screen after registration
                         startActivity(Intent(this, LoginActivity::class.java))
                         finish()
                     } else {
@@ -56,4 +69,3 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 }
-
