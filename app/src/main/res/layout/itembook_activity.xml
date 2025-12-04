@@ -15,7 +15,7 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Logo -->
+
         <ImageView
             android:id="@+id/imgLogoItem"
             android:layout_width="80dp"
@@ -25,7 +25,7 @@
             app:tint="#4A6FA5"
             android:contentDescription="Library Logo"/>
 
-        <!-- Quote -->
+
         <TextView
             android:id="@+id/tvQuoteItem"
             android:layout_width="wrap_content"
@@ -37,7 +37,7 @@
             android:textSize="14sp"
             android:textStyle="italic"/>
 
-        <!-- Divider -->
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -49,7 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!-- Left stripe -->
+
             <View
                 android:id="@+id/stripe"
                 android:layout_width="6dp"
@@ -58,7 +58,7 @@
                 android:layout_marginEnd="12dp"
                 android:background="#4A6FA5"/>
 
-            <!-- Book Title -->
+
             <TextView
                 android:id="@+id/tvBookTitle"
                 android:layout_width="wrap_content"
@@ -69,7 +69,7 @@
                 android:textColor="#4A6FA5"
                 android:textStyle="bold"/>
 
-            <!-- Book Author -->
+
             <TextView
                 android:id="@+id/tvBookAuthor"
                 android:layout_width="wrap_content"
@@ -81,7 +81,7 @@
                 android:textColor="#4A6FA5"
                 android:layout_marginTop="4dp"/>
 
-            <!-- Edit Button -->
+
             <ImageButton
                 android:id="@+id/btnEdit"
                 android:layout_width="48dp"
@@ -93,7 +93,7 @@
                 app:tint="#4A6FA5"
                 android:contentDescription="Edit Book"/>
 
-            <!-- Delete Button -->
+         
             <ImageButton
                 android:id="@+id/btnDelete"
                 android:layout_width="48dp"

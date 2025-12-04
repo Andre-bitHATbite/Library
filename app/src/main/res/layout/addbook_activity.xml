@@ -1,149 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF">
 
-    <!-- Logo -->
-    <ImageView
-        android:id="@+id/imgLogo"
-        android:layout_width="125dp"
-        android:layout_height="140dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginStart="140dp"
-        android:contentDescription="Logo"
-        android:src="@drawable/bool"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:tint="#4A6FA5"/>
-
-    <!-- Title -->
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Library Management"
-        android:textColor="#4A6FA5"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:layout_marginTop="152dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.465"/>
+        android:padding="16dp">
 
-    <!-- Quote -->
-    <TextView
-        android:id="@+id/tvQuote"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Your Gateway to a World of Knowledge."
-        android:textColor="#4A6FA5"
-        android:textSize="16sp"
-        android:textStyle="italic"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.435"/>
+        <!-- Back Arrow -->
+        <ImageView
+            android:id="@+id/imgBack"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:contentDescription="Back"
+            android:src="@drawable/click"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
 
-    <!-- Scrollable Book Form -->
-    <ScrollView
-        android:id="@+id/scrollForm"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:padding="24dp"
-        app:layout_constraintTop_toBottomOf="@id/tvQuote"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        <!-- Logo -->
+        <ImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="125dp"
+            android:layout_height="140dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="Logo"
+            android:src="@drawable/bool"
+            app:layout_constraintTop_toBottomOf="@id/imgBack"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:tint="#4A6FA5"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <!-- Title -->
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:text="Library Management"
+            android:textColor="#4A6FA5"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/imgLogo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
-            <EditText
-                android:id="@+id/etTitle"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:background="@drawable/but"
-                android:drawableTint="#4A6FA5"
-                android:hint="Title"
-                android:paddingStart="16dp"
-                android:textColor="#4A6FA5"
-                android:textColorHint="#4A6FA5"
-                android:textSize="16sp"/>
+        <!-- Quote -->
+        <TextView
+            android:id="@+id/tvQuote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Gateway to a World of Knowledge."
+            android:textColor="#4A6FA5"
+            android:textSize="16sp"
+            android:textStyle="italic"
+            android:layout_marginTop="4dp"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
-            <EditText
-                android:id="@+id/etAuthor"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/but"
-                android:drawableTint="#4A6FA5"
-                android:hint="Author"
-                android:paddingStart="16dp"
-                android:textColor="#4A6FA5"
-                android:textColorHint="#4A6FA5"
-                android:textSize="16sp"/>
+        <!-- EditTexts -->
+        <EditText
+            android:id="@+id/etTitle"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:hint="Title"
+            android:background="@drawable/but"
+            android:paddingStart="16dp"
+            android:textColor="#4A6FA5"
+            android:textColorHint="#4A6FA5"
+            app:layout_constraintTop_toBottomOf="@id/tvQuote"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"/>
 
-            <EditText
-                android:id="@+id/etYear"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/but"
-                android:drawableTint="#4A6FA5"
-                android:hint="Year"
-                android:paddingStart="16dp"
-                android:textColor="#4A6FA5"
-                android:textColorHint="#4A6FA5"
-                android:inputType="number"
-                android:textSize="16sp"/>
+        <EditText
+            android:id="@+id/etAuthor"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:hint="Author"
+            android:background="@drawable/but"
+            android:paddingStart="16dp"
+            android:textColor="#4A6FA5"
+            android:textColorHint="#4A6FA5"
+            app:layout_constraintTop_toBottomOf="@id/etTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="12dp"/>
 
-            <EditText
-                android:id="@+id/etStatus"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/but"
-                android:drawableTint="#4A6FA5"
-                android:hint="Status"
-                android:paddingStart="16dp"
-                android:textColor="#4A6FA5"
-                android:textColorHint="#4A6FA5"
-                android:textSize="16sp"/>
+        <EditText
+            android:id="@+id/etYear"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:hint="Year"
+            android:inputType="number"
+            android:background="@drawable/but"
+            android:paddingStart="16dp"
+            android:textColor="#4A6FA5"
+            android:textColorHint="#4A6FA5"
+            app:layout_constraintTop_toBottomOf="@id/etAuthor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="12dp"/>
 
-            <EditText
-                android:id="@+id/etNotes"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/but"
-                android:drawableTint="#4A6FA5"
-                android:hint="Notes"
-                android:paddingStart="16dp"
-                android:textColor="#4A6FA5"
-                android:textColorHint="#4A6FA5"
-                android:gravity="top"
-                android:textSize="16sp"/>
+        <EditText
+            android:id="@+id/etStatus"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:hint="Status"
+            android:background="@drawable/but"
+            android:paddingStart="16dp"
+            android:textColor="#4A6FA5"
+            android:textColorHint="#4A6FA5"
+            app:layout_constraintTop_toBottomOf="@id/etYear"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="12dp"/>
 
-            <Button
-                android:id="@+id/btnSaveBook"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:text="Save"
-                android:textColor="#FFF1D6"
-                android:backgroundTint="#4A6FA5"
-                android:textSize="18sp"
-                android:layout_marginTop="16dp"/>
+        <EditText
+            android:id="@+id/etNotes"
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:hint="Notes"
+            android:gravity="top"
+            android:background="@drawable/but"
+            android:paddingStart="16dp"
+            android:textColor="#4A6FA5"
+            android:textColorHint="#4A6FA5"
+            app:layout_constraintTop_toBottomOf="@id/etStatus"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="12dp"/>
 
-        </LinearLayout>
-    </ScrollView>
+        <!-- Save Button -->
+        <Button
+            android:id="@+id/btnSaveBook"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:text="Save"
+            android:textColor="#FFF1D6"
+            android:textSize="18sp"
+            android:backgroundTint="#4A6FA5"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            app:layout_constraintTop_toBottomOf="@id/etNotes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
 

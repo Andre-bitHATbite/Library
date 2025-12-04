@@ -21,7 +21,7 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        // Initialize views
+
         etEmail = findViewById(R.id.etEmail)
         etPassword = findViewById(R.id.etPassword)
         etConfirmPassword = findViewById(R.id.etConfirmPassword)
@@ -35,7 +35,7 @@ class RegisterActivity : AppCompatActivity() {
             val password = etPassword.text.toString().trim()
             val confirmPassword = etConfirmPassword.text.toString().trim()
 
-            // Validate fields
+
             if (email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
                 Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -48,13 +48,12 @@ class RegisterActivity : AppCompatActivity() {
 
             btnRegister.isEnabled = false
 
-            // Firebase registration
+
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     btnRegister.isEnabled = true
                     if (task.isSuccessful) {
                         Toast.makeText(this, "Registration successful!", Toast.LENGTH_SHORT).show()
-                        // Go to login screen after registration
                         startActivity(Intent(this, LoginActivity::class.java))
                         finish()
                     } else {

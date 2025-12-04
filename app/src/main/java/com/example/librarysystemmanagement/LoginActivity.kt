@@ -20,15 +20,15 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        // Initialize views
-        etEmail = findViewById(R.id.etUsername) // or rename to etEmail in XML for consistency
+
+        etEmail = findViewById(R.id.etUsername)
         etPassword = findViewById(R.id.etPassword)
         btnLogin = findViewById(R.id.btnLogin)
         btnGoRegister = findViewById(R.id.btnGoRegister)
 
         auth = FirebaseAuth.getInstance()
 
-        // Login button click
+
         btnLogin.setOnClickListener {
             val email = etEmail.text.toString().trim()
             val password = etPassword.text.toString().trim()
@@ -42,7 +42,6 @@ class LoginActivity : AppCompatActivity() {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
-                        // Navigate to the landing page (MainActivity)
                         startActivity(Intent(this, MainActivity::class.java))
                         finish()
                     } else {
@@ -51,7 +50,7 @@ class LoginActivity : AppCompatActivity() {
                 }
         }
 
-        // Go to Register screen
+
         btnGoRegister.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
             finish()
