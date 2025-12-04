@@ -21,6 +21,7 @@ class BookAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
+
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.itembook_activity, parent, false)
         return BookViewHolder(view)
@@ -37,10 +38,10 @@ class BookAdapter(
 
     override fun getItemCount(): Int = books.size
 
+
     fun updateList(newList: List<Book>) {
         books.clear()
         books.addAll(newList)
         notifyDataSetChanged()
     }
 }
-

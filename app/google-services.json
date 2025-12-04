@@ -1,26 +1,36 @@
 {
   "project_info": {
-    "project_number": "931029891233",
-    "project_id": "librarysystemmanagement-d3f22",
-    "storage_bucket": "librarysystemmanagement-d3f22.firebasestorage.app"
+    "project_number": "430353355357",
+    "project_id": "librarysystemapp-b9a4d",
+    "storage_bucket": "librarysystemapp-b9a4d.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:931029891233:android:ba13306bd504cb117fd8e0",
+        "mobilesdk_app_id": "1:430353355357:android:cb3bb06b52ea9eeda0f3b4",
         "android_client_info": {
-          "package_name": "com.example.librarysystemmanagement"
+          "package_name": "com.example.librarysystemapp"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "430353355357-ptcq0clsfthhe6aonc4g0dtcaae6b0ne.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyCed7SiWqYYV08j1GLe3E-mGuHxFDdeTuM"
+          "current_key": "AIzaSyAci_d4jn3abOL4torX7DyDGt-QJwma6L4"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "430353355357-ptcq0clsfthhe6aonc4g0dtcaae6b0ne.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

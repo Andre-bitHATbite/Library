@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-
     id("com.google.gms.google-services")
 }
 
@@ -11,7 +10,8 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.librarysystemmanagement"
+        // THIS IS THE LINE THAT IS CHANGED
+        applicationId = "com.example.librarysystemapp"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
@@ -42,7 +42,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -63,10 +62,9 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-
     implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
-
 
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-database")
+    implementation("com.google.firebase:firebase-firestore-ktx")
 }

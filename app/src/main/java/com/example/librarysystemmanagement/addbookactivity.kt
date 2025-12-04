@@ -7,7 +7,11 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
+
 
 class AddBookActivity : AppCompatActivity() {
 
@@ -18,9 +22,9 @@ class AddBookActivity : AppCompatActivity() {
     private lateinit var notesEditText: EditText
     private lateinit var saveButton: Button
     private lateinit var backArrow: ImageView
-    private lateinit var database: DatabaseReference
-    private lateinit var auth: FirebaseAuth
 
+    private lateinit var db: FirebaseFirestore
+    private lateinit var auth: FirebaseAuth
 
     private var editingBookId: String? = null
 
@@ -29,16 +33,15 @@ class AddBookActivity : AppCompatActivity() {
         setContentView(R.layout.addbook_activity)
 
         auth = FirebaseAuth.getInstance()
+
+        db = Firebase.firestore
+
         val userId = auth.currentUser?.uid
         if (userId == null) {
             Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()
             finish()
             return
         }
-
-
-        database = FirebaseDatabase.getInstance().reference.child("users").child(userId).child("books")
-
 
         titleEditText = findViewById(R.id.etTitle)
         authorEditText = findViewById(R.id.etAuthor)
@@ -48,11 +51,8 @@ class AddBookActivity : AppCompatActivity() {
         saveButton = findViewById(R.id.btnSaveBook)
         backArrow = findViewById(R.id.imgBack)
 
-
         editingBookId = intent.getStringExtra("bookId")
-
         if (editingBookId != null) {
-
             loadBookData(editingBookId!!)
         }
 
@@ -66,28 +66,37 @@ class AddBookActivity : AppCompatActivity() {
     }
 
     private fun loadBookData(bookId: String) {
-        database.child(bookId).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val book = snapshot.getValue(Book::class.java)
-                if (book != null) {
-                    titleEditText.setText(book.title)
-                    authorEditText.setText(book.author)
-                    yearEditText.setText(book.year)
-                    statusEditText.setText(book.status)
-                    notesEditText.setText(book.notes)
+        val userId = auth.currentUser!!.uid
+
+        db.collection("users").document(userId).collection("books").document(bookId)
+            .get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    val book = document.toObject<Book>()
+                    if (book != null) {
+                        titleEditText.setText(book.title)
+                        authorEditText.setText(book.author)
+                        yearEditText.setText(book.year)
+                        statusEditText.setText(book.status)
+                        notesEditText.setText(book.notes)
+                    }
                 } else {
                     Toast.makeText(this@AddBookActivity, "Error: Book not found.", Toast.LENGTH_SHORT).show()
                     finish()
                 }
             }
-
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@AddBookActivity, "Failed to load book data: ${error.message}", Toast.LENGTH_SHORT).show()
+            .addOnFailureListener { e ->
+                Toast.makeText(this@AddBookActivity, "Failed to load book data: ${e.message}", Toast.LENGTH_SHORT).show()
             }
-        })
     }
 
     private fun saveBook() {
+        val userId = auth.currentUser?.uid
+        if (userId == null) {
+            Toast.makeText(this, "Cannot save, user is not logged in.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         val title = titleEditText.text.toString().trim()
         val author = authorEditText.text.toString().trim()
         val year = yearEditText.text.toString().trim()
@@ -100,17 +109,18 @@ class AddBookActivity : AppCompatActivity() {
         }
 
 
-        val bookId = editingBookId ?: database.push().key
+        val booksCollection = db.collection("users").document(userId).collection("books")
 
-        if (bookId == null) {
-            Toast.makeText(this, "Failed to generate book ID.", Toast.LENGTH_SHORT).show()
-            return
+        val bookDocument = if (editingBookId != null) {
+            booksCollection.document(editingBookId!!)
+        } else {
+            booksCollection.document()
         }
 
-
+        val bookId = bookDocument.id
         val book = Book(bookId = bookId, title = title, author = author, year = year, status = status, notes = notes)
 
-        database.child(bookId).setValue(book)
+        bookDocument.set(book)
             .addOnSuccessListener {
                 Toast.makeText(this, "Book saved successfully!", Toast.LENGTH_SHORT).show()
                 finish()
